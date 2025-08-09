@@ -39,12 +39,16 @@ export function Navigation() {
                 {item.label}
               </Link>
             ))}
-            <Button variant="outline" size="sm" className="ml-4">
-              Login
-            </Button>
-            <Button className="hero-button" size="sm">
-              Join Now
-            </Button>
+            <Link to="/auth">
+              <Button variant="outline" size="sm" className="ml-4">
+                Login
+              </Button>
+            </Link>
+            <Link to="/auth">
+              <Button className="hero-button" size="sm">
+                Join Now
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -74,12 +78,16 @@ export function Navigation() {
                 </Link>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="outline" size="sm">
-                  Login
-                </Button>
-                <Button className="hero-button" size="sm">
-                  Join Now
-                </Button>
+                <Link to="/auth">
+                  <Button variant="outline" size="sm">
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/auth">
+                  <Button className="hero-button" size="sm">
+                    Join Now
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

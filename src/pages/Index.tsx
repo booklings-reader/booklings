@@ -126,10 +126,12 @@ export default function Index() {
                 capture insights, and connect with fellow readers.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button className="hero-button text-lg px-8 py-6">
-                  Join Now - It's Free
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                <Link to="/auth">
+                  <Button className="hero-button text-lg px-8 py-6">
+                    Join Now - It's Free
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
                 <Button variant="outline" size="lg" className="text-lg px-8 py-6">
                   Watch Demo
                 </Button>
@@ -177,7 +179,7 @@ export default function Index() {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/personal">
+            <Link to="/auth">
               <Button className="gold-button text-lg px-8 py-4">
                 Start Tracking Now
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -219,25 +221,25 @@ export default function Index() {
               <div className="grid grid-cols-2 gap-4">
                 <Card className="card-premium">
                   <CardContent className="p-6 text-center">
-                    <div className="text-3xl font-bold gradient-text mb-2">2.5M+</div>
+                    <div className="text-3xl font-bold gradient-text mb-2">12,547</div>
                     <p className="text-sm text-muted-foreground">Books Tracked</p>
                   </CardContent>
                 </Card>
                 <Card className="card-premium mt-8">
                   <CardContent className="p-6 text-center">
-                    <div className="text-3xl font-bold gradient-text mb-2">50K+</div>
+                    <div className="text-3xl font-bold gradient-text mb-2">1,984</div>
                     <p className="text-sm text-muted-foreground">Active Readers</p>
                   </CardContent>
                 </Card>
                 <Card className="card-premium -mt-4">
                   <CardContent className="p-6 text-center">
-                    <div className="text-3xl font-bold gradient-text mb-2">4.9★</div>
+                    <div className="text-3xl font-bold gradient-text mb-2">4.6★</div>
                     <p className="text-sm text-muted-foreground">App Rating</p>
                   </CardContent>
                 </Card>
                 <Card className="card-premium mt-4">
                   <CardContent className="p-6 text-center">
-                    <div className="text-3xl font-bold gradient-text mb-2">95%</div>
+                    <div className="text-3xl font-bold gradient-text mb-2">78%</div>
                     <p className="text-sm text-muted-foreground">Goal Success</p>
                   </CardContent>
                 </Card>

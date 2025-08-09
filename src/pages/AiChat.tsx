@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Navigation } from "@/components/ui/navigation";
 import { Footer } from "@/components/ui/footer";
 import { Button } from "@/components/ui/button";
@@ -5,10 +6,87 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import { Sparkles, BookOpen, MessageCircle, ArrowLeft, Bell, Lightbulb, Search, Brain } from "lucide-react";
 import owlMascot from "@/assets/owl-mascot.png";
+import type { User } from '@supabase/supabase-js';
 
 export default function AiChat() {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [notified, setNotified] = useState(false);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    // Check if user is authenticated
+    const getSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user || null);
+
+      // Check if user already requested notifications
+      if (session?.user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('wants_ai_feature')
+          .eq('auth_id', session.user.id)
+          .single();
+        
+        setNotified(profile?.wants_ai_feature || false);
+      }
+    };
+
+    getSession();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user || null);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleNotifyMe = async () => {
+    if (!user) {
+      toast({
+        title: "Login Required",
+        description: "Please log in to get notified when AI Chat is available.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const { error } = await supabase
+        .from('profiles')
+        .update({ wants_ai_feature: true })
+        .eq('auth_id', user.id);
+
+      if (error) {
+        throw error;
+      }
+
+      setNotified(true);
+      toast({
+        title: "You're on the list!",
+        description: "We'll notify you as soon as AI Chat is available.",
+      });
+    } catch (error) {
+      console.error('Error updating notification preference:', error);
+      toast({
+        title: "Error",
+        description: "Failed to save notification preference. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -216,14 +294,13 @@ export default function AiChat() {
                 </div>
                 
                 <div className="space-y-4">
-                  <Input 
-                    type="email" 
-                    placeholder="Enter your email address"
-                    className="text-center"
-                  />
-                  <Button className="gold-button w-full text-lg py-4">
+                  <Button 
+                    className="gold-button w-full text-lg py-4"
+                    onClick={handleNotifyMe}
+                    disabled={loading || notified}
+                  >
                     <Bell className="mr-2 h-5 w-5" />
-                    Notify Me When Ready
+                    {notified ? "You're on the list!" : "Notify Me When Available"}
                   </Button>
                 </div>
                 
@@ -234,10 +311,10 @@ export default function AiChat() {
             </Card>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/">
+              <Link to={user ? "/dashboard" : "/"}>
                 <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10">
                   <ArrowLeft className="mr-2 h-5 w-5" />
-                  Back to Home
+                  {user ? "Back to Dashboard" : "Back to Home"}
                 </Button>
               </Link>
               <Link to="/personal">
