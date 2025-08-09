@@ -61,7 +61,28 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Booklings custom colors
+				gold: 'hsl(var(--gold))',
+				'gold-light': 'hsl(var(--gold-light))',
+				'green-deep': 'hsl(var(--green-deep))',
+				'green-forest': 'hsl(var(--green-forest))',
+				cream: 'hsl(var(--cream))',
+				'cream-warm': 'hsl(var(--cream-warm))'
+			},
+			fontFamily: {
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+				heading: ['Cal Sans', 'Inter', 'system-ui', 'sans-serif']
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-gold': 'var(--gradient-gold)',
+				'gradient-hero': 'var(--gradient-hero)'
+			},
+			boxShadow: {
+				'soft': 'var(--shadow-soft)',
+				'gold': 'var(--shadow-gold)',
+				'premium': 'var(--shadow-premium)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
