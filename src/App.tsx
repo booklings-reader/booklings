@@ -16,6 +16,7 @@ import AiChat from "./pages/AiChat";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import { RequireAuth } from "@/components/auth/RequireAuth";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +29,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
           <Route path="/personal" element={<Personal />} />
           <Route path="/personal/timer" element={<ReadingTimer />} />
           <Route path="/personal/library" element={<Library />} />

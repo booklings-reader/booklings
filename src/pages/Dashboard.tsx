@@ -8,12 +8,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/components/ui/use-toast";
-import { 
-  BookOpen, 
-  Target, 
-  Calendar, 
-  TrendingUp, 
-  Plus, 
+import {
+  BookOpen,
+  Target,
+  Calendar,
+  TrendingUp,
+  Plus,
   Timer,
   PenTool,
   Trophy,
@@ -158,11 +158,7 @@ export default function Dashboard() {
       }
     } catch (error) {
       console.error('Error loading dashboard data:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load dashboard data. Please try again.",
-        variant: "destructive"
-      });
+      toast({ title: "Error", description: "Failed to load dashboard data. Please try again.", variant: "destructive" });
     } finally {
       setLoading(false);
     }
@@ -204,22 +200,44 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
       {/* Header */}
       <section className="py-8 bg-gradient-to-br from-background via-cream-warm to-background">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <h1 className="text-3xl font-bold gradient-text">
-                Welcome back, {profile.full_name?.split(' ')[0] || profile.username}!
-              </h1>
+              <h1 className="text-3xl font-bold gradient-text">Welcome back, {profile.full_name?.split(' ')[0] || profile.username}!</h1>
               <p className="text-muted-foreground">Ready to continue your reading journey?</p>
             </div>
             <div className="flex gap-2">
-              <Button variant="outline" onClick={handleSignOut}>
-                Sign Out
-              </Button>
+              <Button variant="outline" onClick={handleSignOut}>Sign Out</Button>
             </div>
+          </div>
+
+          {/* Profile Card */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+            <Card className="card-premium md:col-span-3">
+              <CardHeader>
+                <CardTitle>Profile</CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-wrap gap-6">
+                <div>
+                  <p className="text-sm text-muted-foreground">Name</p>
+                  <p className="font-medium">{profile.full_name || profile.username}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Username</p>
+                  <p className="font-medium">{profile.username}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Daily Goal</p>
+                  <p className="font-medium">{profile.reading_goal_daily} min</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Weekly Goal</p>
+                  <p className="font-medium">{profile.reading_goal_weekly} min</p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -236,9 +254,7 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{streak?.current_streak || 0} days</div>
-                <p className="text-xs text-muted-foreground">
-                  Best: {streak?.longest_streak || 0} days
-                </p>
+                <p className="text-xs text-muted-foreground">Best: {streak?.longest_streak || 0} days</p>
               </CardContent>
             </Card>
 
@@ -250,9 +266,7 @@ export default function Dashboard() {
               <CardContent>
                 <div className="text-2xl font-bold">{todayReading} min</div>
                 <Progress value={dailyProgress} className="mt-2" />
-                <p className="text-xs text-muted-foreground mt-1">
-                  Goal: {profile.reading_goal_daily} min
-                </p>
+                <p className="text-xs text-muted-foreground mt-1">Goal: {profile.reading_goal_daily} min</p>
               </CardContent>
             </Card>
 
@@ -264,9 +278,7 @@ export default function Dashboard() {
               <CardContent>
                 <div className="text-2xl font-bold">{weeklyReading} min</div>
                 <Progress value={weeklyProgress} className="mt-2" />
-                <p className="text-xs text-muted-foreground mt-1">
-                  Goal: {profile.reading_goal_weekly} min
-                </p>
+                <p className="text-xs text-muted-foreground mt-1">Goal: {profile.reading_goal_weekly} min</p>
               </CardContent>
             </Card>
 
@@ -277,17 +289,14 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{currentBooks.length}</div>
-                <p className="text-xs text-muted-foreground">
-                  {currentBooks.length === 1 ? 'book' : 'books'} in progress
-                </p>
+                <p className="text-xs text-muted-foreground">{currentBooks.length === 1 ? 'book' : 'books'} in progress</p>
               </CardContent>
             </Card>
           </div>
 
           {/* Quick Actions */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <Card className="card-premium hover:scale-105 transition-transform cursor-pointer"
-                  onClick={() => navigate("/personal/timer")}>
+            <Card className="card-premium hover:scale-105 transition-transform cursor-pointer" onClick={() => navigate("/personal/timer") }>
               <CardHeader className="text-center">
                 <div className="w-16 h-16 bg-gradient-primary rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <Timer className="h-8 w-8 text-primary-foreground" />
@@ -300,8 +309,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            <Card className="card-premium hover:scale-105 transition-transform cursor-pointer"
-                  onClick={() => navigate("/personal/library")}>
+            <Card className="card-premium hover:scale-105 transition-transform cursor-pointer" onClick={() => navigate("/personal/library") }>
               <CardHeader className="text-center">
                 <div className="w-16 h-16 bg-gradient-gold rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <BookOpen className="h-8 w-8 text-accent-foreground" />
@@ -314,8 +322,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            <Card className="card-premium hover:scale-105 transition-transform cursor-pointer"
-                  onClick={() => navigate("/personal/notes")}>
+            <Card className="card-premium hover:scale-105 transition-transform cursor-pointer" onClick={() => navigate("/personal/notes") }>
               <CardHeader className="text-center">
                 <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <PenTool className="h-8 w-8 text-secondary-foreground" />
@@ -333,10 +340,7 @@ export default function Dashboard() {
           {currentBooks.length > 0 && (
             <Card className="card-premium mb-8">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="h-5 w-5" />
-                  Currently Reading
-                </CardTitle>
+                <CardTitle className="flex items-center gap-2"><BookOpen className="h-5 w-5" />Currently Reading</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -347,15 +351,10 @@ export default function Dashboard() {
                         <p className="text-sm text-muted-foreground">by {userBook.books.author}</p>
                         <div className="mt-2">
                           <Progress value={userBook.progress_percentage || 0} className="w-full" />
-                          <p className="text-xs text-muted-foreground mt-1">
-                            Page {userBook.current_page} of {userBook.books.page_count} 
-                            ({Math.round(userBook.progress_percentage || 0)}%)
-                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">Page {userBook.current_page} of {userBook.books.page_count} ({Math.round(userBook.progress_percentage || 0)}%)</p>
                         </div>
                       </div>
-                      <Button variant="outline" size="sm" onClick={() => navigate("/personal/timer")}>
-                        Continue Reading
-                      </Button>
+                      <Button variant="outline" size="sm" onClick={() => navigate("/personal/timer")}>Continue Reading</Button>
                     </div>
                   ))}
                 </div>
@@ -371,12 +370,8 @@ export default function Dashboard() {
                   <Plus className="h-10 w-10 text-primary-foreground" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Ready to start reading?</h3>
-                <p className="text-muted-foreground mb-6">
-                  Add your first book to your library and begin tracking your reading journey.
-                </p>
-                <Button className="gold-button" onClick={() => navigate("/personal/library")}>
-                  Add Your First Book
-                </Button>
+                <p className="text-muted-foreground mb-6">Add your first book to your library and begin tracking your reading journey.</p>
+                <Button className="gold-button" onClick={() => navigate("/personal/library")}>Add Your First Book</Button>
               </CardContent>
             </Card>
           )}
